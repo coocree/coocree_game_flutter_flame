@@ -1,10 +1,13 @@
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:flame/effects.dart';
 import 'package:flutter/services.dart';
+import 'package:my_game/actors/water_enemy.dart';
 import '../objects/ground_block.dart';
 import '../objects/platform_block.dart';
 
 import '../ember_quest.dart';
+import '../objects/star.dart';
 
 class EmberPlayer extends SpriteAnimationComponent
     with CollisionCallbacks ,KeyboardHandler, HasGameRef<EmberQuestGame>{
@@ -18,8 +21,9 @@ class EmberPlayer extends SpriteAnimationComponent
   final Vector2 fromAbove = Vector2(0, -1);
   bool isOnGround = false;
   final double gravity = 15;
-  final double jumpSpeed = 600;
-  final double terminalVelocity = 150;
+  final double jumpSpeed = 500;
+  final double terminalVelocity = 500;
+  bool hitByEnemy = false;
 
   bool hasJumped = false;
 
@@ -46,9 +50,37 @@ class EmberPlayer extends SpriteAnimationComponent
       hasJumped = false;
     }
 
+    game.objectSpeed = 0;
+// Prevent ember from going backwards at screen edge.
+    if (position.x - 36 <= 0 && horizontalDirection < 0) {
+      velocity.x = 0;
+    }
+// Prevent ember from going beyond half screen.
+    if (position.x + 64 >= game.size.x / 2 && horizontalDirection > 0) {
+      velocity.x = 0;
+      game.objectSpeed = -moveSpeed;
+    }
+
 // Prevent ember from jumping to crazy fast as well as descending too fast and
 // crashing through the ground or a platform.
     velocity.y = velocity.y.clamp(-jumpSpeed, terminalVelocity);
+  }
+
+  void hit() {
+    if (!hitByEnemy) {
+      hitByEnemy = true;
+    }
+    add(
+      OpacityEffect.fadeOut(
+        EffectController(
+          alternate: true,
+          duration: 0.1,
+          repeatCount: 6,
+        ),
+      )..onComplete = () {
+        hitByEnemy = false;
+      },
+    );
   }
 
   @override
@@ -73,6 +105,14 @@ class EmberPlayer extends SpriteAnimationComponent
         // collision normal by separation distance.
         position += collisionNormal.scaled(separationDistance);
       }
+    }
+
+    if (other is Star) {
+      other.removeFromParent();
+    }
+
+    if (other is WaterEnemy) {
+      hit();
     }
 
     super.onCollision(intersectionPoints, other);

@@ -30,7 +30,8 @@ class EmberQuestGame extends FlameGame with HasCollisionDetection,HasKeyboardHan
   Future<void> onLoad() async {
     await images.loadAll([
       'block.png',
-      'ember.png',
+      // 'ember.png',
+
       'ground.png',
       'heart_half.png',
       'heart.png',
