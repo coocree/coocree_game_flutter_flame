@@ -4,22 +4,10 @@
 
 ### Entendendo como o SpriteButton funciona.
 
-1. Comecei a entender através do código como o SpriteButton é construído.
-2. No código de exemplos do flame o SpriteButton extende quatro pacotes principais
-e utiliza uma classe chamada SpriteButton.dart onde se concentram suas propridades
-de configuração.
+O SpriteButton é uma classe que permite criar botões interativos com imagens, animações e outras propriedades personalizadas. Ele é construído utilizando códigos em uma linguagem de programação chamada Dart, que é usada para criar aplicativos para dispositivos móveis e outros dispositivos eletrônicos.
 
-* import 'package:dashbook/dashbook.dart';
-* import 'package:flame/extensions.dart';
-* import 'package:flame/widgets.dart';
-* import 'package:flutter/widgets.dart';
+Para utilizar o SpriteButton, é necessário importar alguns pacotes e criar uma classe com as propriedades de configuração desejadas. Essas propriedades incluem o caminho da imagem que será usada no botão, a posição e o tamanho da imagem, o que acontecerá quando o botão for pressionado, a largura e a altura do botão, entre outras.
 
-3. Também pesquisei mais sobre o funcionamento do SpriteButton e encontrei informações úteis sobre 
-a manipulação de imagens de sprite, como coordenadas e tamanhos de imagens no sprite.
-
-4. Testei algumas das propriedades de configuração do SpriteButton, como path, pressedPath, 
-srcPosition, srcSize, pressedSrcPosition, pressedSrcSize, onPressed, label, width e height.
-
-5. Tentei criar o próprio SpriteButton com os códigos originais do flame.
+Ao criar um SpriteButton, é possível personalizar muitas características, como a imagem que será usada, a posição da imagem no botão e o tamanho da imagem. Também é possível definir o que acontecerá quando o botão for pressionado, como executar uma ação ou mudar a imagem exibida.
 
 
